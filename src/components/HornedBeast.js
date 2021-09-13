@@ -1,12 +1,37 @@
 import React from 'react';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
 class HornedBeast extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {votes: 0}
+    }
+    
+    voting = () => {
+        this.setState({
+            votes: this.state.votes +1
+        })
+    }
+
     render(){
         return(
             <div>
-                <h2>Horned Beast</h2>
-               <img src={this.props.imgUrl} alt="horned beast" height='500px' width='700px' />
-                <p>Horned Beast are herbivorous animals found throughout the Nature civilization. Surprisingly agile, they are mild-tempered herd animals with large horns. They have evolved into stocky creatures with a low center of gravity and use their speed to escape predators. When spooked, the herd can erupt into a deadly stampede</p>
+               
+                            
+            <Card style={{ width: '18rem' }}>
+            <Card.Img variant="top" src={this.props.image_url} />
+            <Card.Body>
+                <Card.Title>{this.props.title}</Card.Title>
+                <Card.Text>
+                {this.props.description} 
+                 ( votes : {this.state.votes})
+                </Card.Text>
+                <Button onClick={this.voting} variant="primary"> vote</Button>
+            </Card.Body>
+            </Card>
+
            </div>
             )
 
