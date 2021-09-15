@@ -6,13 +6,32 @@ class HornedBeast extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {votes: 0}
+        this.state = {
+            votes: 0,
+            viweModal: false,
+            beastName: '',
+        }
+
     }
     
     voting = () => {
         this.setState({
             votes: this.state.votes +1
         })
+    }
+
+    openModal = () => {
+        this.setState({
+            beastName: this.props.title
+        })
+        this.props.close()
+    }
+    
+    closeModal = () => {
+        this.setState({
+            viweModal: false
+        })
+        this.props.display()
     }
 
     render(){
