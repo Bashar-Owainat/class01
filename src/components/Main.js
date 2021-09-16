@@ -28,7 +28,7 @@ class Main extends React.Component {
 
         let data = HornedData.find(e => e.title === title);
 
-        console.log(data.image_url)
+        console.log()
         this.setState({
 
             beastName: data.title,
@@ -43,7 +43,7 @@ class Main extends React.Component {
         return (
             <>
 
-                {this.state.displayModal &&
+              
                     <BeastModal
                         display={this.state.displayModal}
                         handleClose={this.handleClose}
@@ -51,7 +51,7 @@ class Main extends React.Component {
                         image_url={this.state.img}
                         description={this.state.description}
                     />
-                }
+              
                 {
 
 
