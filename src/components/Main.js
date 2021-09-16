@@ -3,6 +3,8 @@ import HornedBeast from './HornedBeast';
 import HornedData from './HornedData.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BeastModal from './BeastModal';
+//import Form from './Form';
+import Form from 'react-bootstrap/Form'
 
 
 class Main extends React.Component {
@@ -13,6 +15,8 @@ class Main extends React.Component {
             beastName: '',
             description: '',
             img: '',
+            horns:'',
+            filteredSearch: '',
             displayModal: false
         }
     }
@@ -34,14 +38,40 @@ class Main extends React.Component {
             beastName: data.title,
             description: data.description,
             img: data.image_url,
+            horns:data.horns,
             displayModal: true
         })
     }
+     
+    handleSearch = (e) => {
+        console.log(e.target.value)
+        this.setState({
+        filteredSearch: e.target.value
+        })
+        
+        }
+
+      
+        // filteredHorns = () => {
+        //     return this.state.horns.filter(horn => {
+        //         return horn.filteredSearch;
+        //     })
+        // }
 
     render() {
 
         return (
             <>
+             <Form.Select aria-label="Default select example">
+                <option>Open this select menu</option>
+                <option value="1"  >One</option>
+                <option value="2" >Two</option>
+                <option value="3">Three</option>
+                <option value="100" >Wow...</option>
+                
+            </Form.Select>
+    
+        
 
                 {this.state.displayModal &&
                     <BeastModal
@@ -50,6 +80,8 @@ class Main extends React.Component {
                         beastTitle={this.state.beastName}
                         image_url={this.state.img}
                         description={this.state.description}
+                        horns={this.state.horns}
+                        handleSearch={this.handleSearch}
                     />
                 }
                 {
@@ -65,6 +97,7 @@ class Main extends React.Component {
                                 horns={element.horns}
                                 key={index}
                                 fillData={this.fillData}
+                                
                             />
                         )
                     })
