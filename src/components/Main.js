@@ -3,7 +3,6 @@ import HornedBeast from './HornedBeast';
 import HornedData from './HornedData.json';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BeastModal from './BeastModal';
-//import Form from './Form';
 import Form from 'react-bootstrap/Form'
 
 
@@ -16,7 +15,8 @@ class Main extends React.Component {
             description: '',
             img: '',
             horns:'',
-            filteredSearch: '',
+            filteredSearch: 0,
+             data:HornedData,
             displayModal: false
         }
     }
@@ -42,28 +42,44 @@ class Main extends React.Component {
             displayModal: true
         })
     }
-     
+
+     FilterResult = (num) => {
+        
+         let newArr = HornedData.filter( element =>{
+            
+             if(num === 0){
+                 return element;
+               
+             }
+             else if (element.horns === num ){
+                 return true;
+             }
+             else {
+                 return false;
+             }
+            
+         })
+        
+         return newArr;
+        
+     }
     handleSearch = (e) => {
-        console.log(e.target.value)
+        
         this.setState({
-        filteredSearch: e.target.value
+        filteredSearch: e.target.value,
+        data:this.FilterResult(Number(e.target.value))
         })
         
         }
 
       
-        // filteredHorns = () => {
-        //     return this.state.horns.filter(horn => {
-        //         return horn.filteredSearch;
-        //     })
-        // }
 
     render() {
 
         return (
             <>
-             <Form.Select aria-label="Default select example">
-                <option>Open this select menu</option>
+             <Form.Select aria-label="Default select example" onChange={this.handleSearch}>
+                <option value="0">All</option>
                 <option value="1"  >One</option>
                 <option value="2" >Two</option>
                 <option value="3">Three</option>
@@ -73,7 +89,7 @@ class Main extends React.Component {
     
         
 
-                {this.state.displayModal &&
+              
                     <BeastModal
                         display={this.state.displayModal}
                         handleClose={this.handleClose}
@@ -81,13 +97,13 @@ class Main extends React.Component {
                         image_url={this.state.img}
                         description={this.state.description}
                         horns={this.state.horns}
-                        handleSearch={this.handleSearch}
+                        
                     />
-                }
+     
                 {
 
-
-                    HornedData.map((element, index) => {
+                 
+                   this.state.data.map((element, index) => {
                         return (
                             <HornedBeast
                                 image_url={element.image_url}
@@ -98,11 +114,15 @@ class Main extends React.Component {
                                 key={index}
                                 fillData={this.fillData}
                                 
+                                
+                                
                             />
                         )
                     })
 
 
+               
+               
 
                 }
 
